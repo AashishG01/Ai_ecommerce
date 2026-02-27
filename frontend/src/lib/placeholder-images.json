@@ -1,0 +1,112 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-banner-1",
+      "description": "Stylish person wearing modern clothes in a vibrant city setting.",
+      "imageUrl": "https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmYXNoaW9uJTIwbW9kZWx8ZW58MHx8fHwxNzYwOTg2NjkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fashion model"
+    },
+    {
+      "id": "product-1",
+      "description": "A stylish modern backpack.",
+      "imageUrl": "https://images.unsplash.com/photo-1600019248002-f4c4898f739b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxiYWNrcGFja3xlbnwwfHx8fDE3NjA5OTU1MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "backpack"
+    },
+    {
+      "id": "product-2",
+      "description": "A pair of sleek wireless headphones.",
+      "imageUrl": "https://images.unsplash.com/photo-1628202926206-c63a34b1618f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxoZWFkcGhvbmVzfGVufDB8fHx8MTc2MDk4MzUxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "headphones"
+    },
+    {
+      "id": "product-3",
+      "description": "A classic leather-strap wristwatch.",
+      "imageUrl": "https://images.unsplash.com/photo-1619946928632-abefa12506e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3cmlzdHdhdGNofGVufDB8fHx8MTc2MDk3Mjg5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wristwatch"
+    },
+    {
+      "id": "product-4",
+      "description": "Comfortable and stylish sneakers.",
+      "imageUrl": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzbmVha2Vyc3xlbnwwfHx8fDE3NjA5NzkzNjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sneakers"
+    },
+    {
+      "id": "product-5",
+      "description": "A modern smart home assistant device.",
+      "imageUrl": "https://images.unsplash.com/photo-1752262167753-37a0ec83f614?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzbWFydCUyMGRldmljZXxlbnwwfHx8fDE3NjEwNDIwNjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smart device"
+    },
+    {
+      "id": "product-6",
+      "description": "A professional-grade coffee maker.",
+      "imageUrl": "https://images.unsplash.com/photo-1638129284529-bed6d6f588e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2ZmZWUlMjBtYWtlcnxlbnwwfHx8fDE3NjA5NjU4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coffee maker"
+    },
+    {
+      "id": "product-7",
+      "description": "A durable and insulated water bottle.",
+      "imageUrl": "https://images.unsplash.com/photo-1616118133712-8c947f7b822c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3YXRlciUyMGJvdHRsZXxlbnwwfHx8fDE3NjA5NjgxMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "water bottle"
+    },
+    {
+      "id": "product-8",
+      "description": "A sleek and powerful laptop computer.",
+      "imageUrl": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsYXB0b3B8ZW58MHx8fHwxNzYwOTgyNjk1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "laptop"
+    },
+    {
+      "id": "product-9",
+      "description": "A pair of classic denim jeans.",
+      "imageUrl": "https://images.unsplash.com/photo-1714729382668-7bc3bb261662?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxqZWFuc3xlbnwwfHx8fDE3NjEwMjUzMDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jeans"
+    },
+    {
+      "id": "product-10",
+      "description": "A warm and cozy knit sweater.",
+      "imageUrl": "https://images.unsplash.com/photo-1608984361471-ff566593088f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c3dlYXRlcnxlbnwwfHx8fDE3NjEwMzIxMTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sweater"
+    },
+    {
+      "id": "product-11",
+      "description": "A stylish pair of sunglasses.",
+      "imageUrl": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdW5nbGFzc2VzfGVufDB8fHx8MTc2MDk3MjI5NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sunglasses"
+    },
+    {
+      "id": "product-12",
+      "description": "A compact and portable digital camera.",
+      "imageUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjYW1lcmF8ZW58MHx8fHwxNzYxMDE4NjQwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "camera"
+    },
+    {
+      "id": "category-1",
+      "description": "Apparel category image.",
+      "imageUrl": "https://images.unsplash.com/photo-1614990354198-b06764dcb13c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjbG90aGluZyUyMHJhY2t8ZW58MHx8fHwxNzYwOTYzMzk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "clothing rack"
+    },
+    {
+      "id": "category-2",
+      "description": "Electronics category image.",
+      "imageUrl": "https://images.unsplash.com/photo-1602526432604-029a709e131c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2FkZ2V0c3xlbnwwfHx8fDE3NjA5NzE1Mzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gadgets"
+    },
+    {
+      "id": "category-3",
+      "description": "Accessories category image.",
+      "imageUrl": "https://images.unsplash.com/photo-1596479948262-0958606f0d1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3YXRjaCUyMHN1bmdsYXNzZXN8ZW58MHx8fHwxNzYxMDQyMDYwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "watch sunglasses"
+    },
+    {
+      "id": "category-4",
+      "description": "Home Goods category image.",
+      "imageUrl": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bGl2aW5nJTIwcm9vbXxlbnwwfHx8fDE3NjA5MjY3OTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "living room"
+    },
+    {
+      "id": "login-image",
+      "description": "A stylish urban background for login page.",
+      "imageUrl": "https://images.unsplash.com/photo-1549654747-1fe362f45d7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2l0eSUyMHN0cmVldHxlbnwwfHx8fDE3NjA5ODE0Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city street"
+    }
+  ]
+}

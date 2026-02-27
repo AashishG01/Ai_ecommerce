@@ -1,0 +1,255 @@
+// EStoreFront — Prisma Schema (PostgreSQL)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ─────────────────────────────────────────────────
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum PaymentProvider {
+  STRIPE
+  RAZORPAY
+}
+
+// ─── Users ─────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String
+  role         Role     @default(CUSTOMER)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  orders        Order[]
+  cartItems     CartItem[]
+  reviews       Review[]
+  wishlistItems WishlistItem[]
+  addresses     Address[]
+
+  @@map("users")
+}
+
+// ─── Products ──────────────────────────────────────────────
+
+model Product {
+  id            String   @id @default(uuid())
+  name          String
+  slug          String   @unique
+  description   String
+  price         Decimal  @db.Decimal(10, 2)
+  originalPrice Decimal? @map("original_price") @db.Decimal(10, 2)
+  images        String[]
+  rating        Decimal  @default(0) @db.Decimal(3, 2)
+  reviewCount   Int      @default(0) @map("review_count")
+  isTrending    Boolean  @default(false) @map("is_trending")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  categoryId String   @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  brandId String @map("brand_id")
+  brand   Brand  @relation(fields: [brandId], references: [id])
+
+  inventory     Inventory?
+  orderItems    OrderItem[]
+  cartItems     CartItem[]
+  reviews       Review[]
+  wishlistItems WishlistItem[]
+
+  @@index([categoryId])
+  @@index([brandId])
+  @@index([price])
+  @@index([isTrending])
+  @@map("products")
+}
+
+// ─── Categories ────────────────────────────────────────────
+
+model Category {
+  id   String @id @default(uuid())
+  name String @unique
+  slug String @unique
+
+  products Product[]
+
+  @@map("categories")
+}
+
+// ─── Brands ────────────────────────────────────────────────
+
+model Brand {
+  id   String @id @default(uuid())
+  name String @unique
+  slug String @unique
+
+  products Product[]
+
+  @@map("brands")
+}
+
+// ─── Inventory ─────────────────────────────────────────────
+
+model Inventory {
+  id        String   @id @default(uuid())
+  quantity  Int      @default(0)
+  reserved  Int      @default(0)
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  productId String  @unique @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("inventory")
+}
+
+// ─── Orders ────────────────────────────────────────────────
+
+model Order {
+  id        String      @id @default(uuid())
+  status    OrderStatus @default(PENDING)
+  total     Decimal     @db.Decimal(10, 2)
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  addressId String?  @map("address_id")
+  address   Address? @relation(fields: [addressId], references: [id])
+
+  items   OrderItem[]
+  payment Payment?
+
+  @@index([userId])
+  @@map("orders")
+}
+
+// ─── Order Items ───────────────────────────────────────────
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  quantity  Int
+  unitPrice Decimal @map("unit_price") @db.Decimal(10, 2)
+
+  orderId String @map("order_id")
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@map("order_items")
+}
+
+// ─── Payments ──────────────────────────────────────────────
+
+model Payment {
+  id        String          @id @default(uuid())
+  gatewayId String?         @map("gateway_id")
+  provider  PaymentProvider
+  status    PaymentStatus   @default(PENDING)
+  amount    Decimal         @db.Decimal(10, 2)
+  createdAt DateTime        @default(now()) @map("created_at")
+
+  orderId String @unique @map("order_id")
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  @@map("payments")
+}
+
+// ─── Cart Items ────────────────────────────────────────────
+
+model CartItem {
+  id       String @id @default(uuid())
+  quantity Int    @default(1)
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+  @@map("cart_items")
+}
+
+// ─── Reviews ───────────────────────────────────────────────
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+  @@index([productId])
+  @@map("reviews")
+}
+
+// ─── Wishlist Items ────────────────────────────────────────
+
+model WishlistItem {
+  id String @id @default(uuid())
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+  @@map("wishlist_items")
+}
+
+// ─── Addresses ─────────────────────────────────────────────
+
+model Address {
+  id         String  @id @default(uuid())
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  postalCode String  @map("postal_code")
+  country    String  @default("India")
+  isDefault  Boolean @default(false) @map("is_default")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  orders Order[]
+
+  @@index([userId])
+  @@map("addresses")
+}
