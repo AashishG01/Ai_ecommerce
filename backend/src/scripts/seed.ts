@@ -5,6 +5,7 @@
  * Usage: npx ts-node src/scripts/seed.ts
  */
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -259,7 +260,32 @@ async function main() {
         });
     }
 
-    console.log(`\n✅ Seeded ${CATEGORIES.length} categories, ${BRANDS.length} brands, ${PRODUCTS.length} products`);
+    // Seed test users
+    console.log('  Seeding test users...');
+    const adminHash = await bcrypt.hash('Admin123', 12);
+    const customerHash = await bcrypt.hash('Customer123', 12);
+
+    await prisma.user.create({
+        data: {
+            name: 'Admin User',
+            email: 'admin@estorefont.com',
+            passwordHash: adminHash,
+            role: 'ADMIN',
+        },
+    });
+
+    await prisma.user.create({
+        data: {
+            name: 'Test Customer',
+            email: 'customer@estorefont.com',
+            passwordHash: customerHash,
+            role: 'CUSTOMER',
+        },
+    });
+
+    console.log(`\n✅ Seeded ${CATEGORIES.length} categories, ${BRANDS.length} brands, ${PRODUCTS.length} products, 2 test users`);
+    console.log('  └─ Admin:    admin@estorefont.com / Admin123');
+    console.log('  └─ Customer: customer@estorefont.com / Customer123');
 }
 
 main()

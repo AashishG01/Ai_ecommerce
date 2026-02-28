@@ -2,11 +2,14 @@
 AI Shopping Chat service.
 Uses LangChain + Ollama to generate friendly shopping responses
 with product recommendations from vector search.
+
+Phase 6: Migrated to use loguru for structured logging.
 """
 import json
 import re
 from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage, SystemMessage
+from loguru import logger
 from config import OLLAMA_BASE_URL, OLLAMA_CHAT_MODEL
 from services.vector_search import search_products
 
@@ -86,16 +89,22 @@ def _extract_json(text: str) -> dict | None:
 async def generate_shopping_response(user_message: str, history: str = "") -> dict:
     """
     Generate an AI shopping response.
-    1. Search for matching products via vector search
+    1. Search for matching products via vector search (now from PostgreSQL)
     2. Build prompt with product context
     3. Generate response with Ollama LLM
     """
     # Step 1: Search for matching products
     products = await search_products(user_message)
+    logger.info(f"Chat search found {len(products)} products for: '{user_message[:50]}...'")
 
     # Step 2: Build prompt with product context
     if products:
-        product_context = f"Available matching products:\n{json.dumps(products, indent=2)}"
+        # Clean products for context (remove similarity_score)
+        clean_products = []
+        for p in products:
+            cp = {k: v for k, v in p.items() if k != "similarity_score"}
+            clean_products.append(cp)
+        product_context = f"Available matching products:\n{json.dumps(clean_products, indent=2, default=str)}"
     else:
         product_context = "No products matched the search."
 
@@ -131,7 +140,7 @@ Respond with ONLY a valid JSON object: {{"message": "your friendly reply", "prod
         return {"message": response_text[:500], "products": products}
 
     except Exception as e:
-        print(f"Ollama response generation failed: {e}")
+        logger.error(f"Ollama response generation failed: {e}")
         return {
             "message": "I'm having trouble right now. Make sure Ollama is running! 😊",
             "products": [],

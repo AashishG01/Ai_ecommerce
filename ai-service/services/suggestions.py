@@ -1,8 +1,11 @@
 """
 Search suggestions service using Google Gemini.
-Replaces the Genkit flow from the original monolith.
+Phase 6: Updated to use loguru for structured logging.
 """
+import json
+import re
 import google.generativeai as genai
+from loguru import logger
 from config import GOOGLE_API_KEY
 
 # Configure the Gemini API
@@ -41,6 +44,7 @@ async def get_search_suggestions(
     """Generate AI-powered search suggestions using Google Gemini."""
     if not GOOGLE_API_KEY:
         # Fallback: return basic suggestions without AI
+        logger.warning("No GOOGLE_API_KEY — using fallback suggestions")
         return [
             f"{query} best sellers",
             f"{query} on sale",
@@ -60,22 +64,20 @@ async def get_search_suggestions(
         response = await _model.generate_content_async(prompt)
         text = response.text.strip()
 
-        # Parse the JSON array from the response
-        import json
-        import re
-
         # Clean markdown code blocks
         cleaned = re.sub(r'```json\s*', '', text, flags=re.IGNORECASE)
         cleaned = re.sub(r'```\s*', '', cleaned).strip()
 
         suggestions = json.loads(cleaned)
         if isinstance(suggestions, list):
-            return [str(s) for s in suggestions[:5]]
+            result = [str(s) for s in suggestions[:5]]
+            logger.info(f"Gemini suggestions for '{query}': {result}")
+            return result
 
         return []
 
     except Exception as e:
-        print(f"Gemini suggestion generation failed: {e}")
+        logger.error(f"Gemini suggestion generation failed: {e}")
         # Fallback suggestions
         return [
             f"{query} best sellers",

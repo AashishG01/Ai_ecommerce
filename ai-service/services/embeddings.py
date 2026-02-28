@@ -1,7 +1,9 @@
 """
 Embedding generation service using Ollama via LangChain.
+Phase 6: Added loguru logging.
 """
 from langchain_ollama import OllamaEmbeddings
+from loguru import logger
 from config import OLLAMA_BASE_URL, OLLAMA_EMBED_MODEL
 
 # Initialize embeddings model
@@ -17,4 +19,5 @@ async def generate_embedding(text: str) -> list[float]:
         vector = await _embeddings.aembed_query(text)
         return vector
     except Exception as e:
+        logger.error(f"Embedding generation failed: {e}")
         raise RuntimeError(f"Failed to generate embedding. Is Ollama running? Error: {e}")

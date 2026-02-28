@@ -19,11 +19,20 @@ import { prisma } from './lib/prisma';
 import { apiLimiter } from './middleware/rateLimiter';
 import { errorHandler } from './middleware/errorHandler';
 import productRoutes from './modules/products/products.routes';
+import authRoutes from './modules/auth/auth.routes';
+import cartRoutes from './modules/cart/cart.routes';
+import wishlistRoutes from './modules/wishlist/wishlist.routes';
+import addressRoutes from './modules/addresses/addresses.routes';
+import orderRoutes from './modules/orders/orders.routes';
+import paymentRoutes from './modules/payments/payments.routes';
+import reviewRoutes from './modules/reviews/reviews.routes';
+import searchRoutes from './modules/search/search.routes';
+import adminRoutes from './modules/admin/admin.routes';
 
 dotenv.config();
 
 // ─── Validate Required Env Vars ────────────────────────────
-const requiredEnvVars = ['DATABASE_URL'];
+const requiredEnvVars = ['DATABASE_URL', 'JWT_ACCESS_SECRET', 'JWT_REFRESH_SECRET'];
 for (const key of requiredEnvVars) {
     if (!process.env[key]) {
         logger.fatal(`Missing required environment variable: ${key}`);
@@ -62,7 +71,16 @@ app.use(
 );
 
 // ─── Routes ────────────────────────────────────────────────
+app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/wishlist', wishlistRoutes);
+app.use('/api/addresses', addressRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => {
